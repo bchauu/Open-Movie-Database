@@ -1,24 +1,8 @@
 .form {
-    display: grid;
-    grid-area: movies-list;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    height: 100%;
-    padding: 1rem;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  position: relative;
+  height: 100%;
   }
-  
-  /* .movie {
-    position: relative;
-    margin: 0;
-    display: grid;
-    grid-template-rows: 1fr auto;
-    break-inside: avoid;
-    border-radius: 25% 10%;
-    overflow: hidden;
-  }
-  
-  .movie img {
-    max-width: 100%;
-  } */
   

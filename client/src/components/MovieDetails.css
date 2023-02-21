@@ -1,3 +1,7 @@
+.border {
+  padding: 2rem;
+}
+
 .movieDetailsPage {
   display: flex;
   flex-direction: column;
@@ -17,7 +21,3 @@
     flex-direction: column;
     padding-left: 5%;
   }
-
-  /* .poster {
-    size: ;
-  } */

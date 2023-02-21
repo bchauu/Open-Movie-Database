@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import './MovieDetails.css';
 
 
-
 function MovieDetails(props) {
 
   const location = useLocation();
@@ -13,7 +12,6 @@ function MovieDetails(props) {
   const movie = from;
 
   const [movieDetail, setMovieDetail] = useState({});
-  // const params = useParams();
 
   useEffect(() => {
     fetch(`http://www.omdbapi.com/?t=${movie.Title}&y=${movie.Year}&plot=full&apikey=917b056f`)
@@ -23,9 +21,8 @@ function MovieDetails(props) {
 
   console.log(movieDetail);
 
-
-
   return (
+    <div className="border">
     <MovieDetailCard>
       <div className="movieDetailsPage" >
         <h1>Movie Details</h1>
@@ -37,34 +34,38 @@ function MovieDetails(props) {
           <div className='info'>
             <h3>
               Ratings
+            </h3>
               {movieDetail.Ratings 
                 ? movieDetail.Ratings.map((rating) => (
-                  <p>
-                    {rating.Source}
-                    {rating.Value}
-                  </p>
+                  <div>
+                    <h3>
+                      {rating.Source}
+                    </h3>
+                    <p>
+                      {rating.Value}
+                    </p>
+                  </div>
                 )) 
                 : console.log("have not been fetched")
                }
-            </h3>
             <h3>
               Cast
-              <p>{movieDetail.Actors}</p>
             </h3>
+              <p>{movieDetail.Actors}</p>
             <h3>
               Genre
-              <p>{movieDetail.Genre}</p>
             </h3>
+              <p>{movieDetail.Genre}</p>
             <h3>
               Plot
-              <p>{movieDetail.Plot}</p> 
             </h3>
+              <p>{movieDetail.Plot}</p> 
           </div>
         </div>
       </div>
     </MovieDetailCard>
+    </div>
   );
 }
-// params to filter out json object
 
 export default MovieDetails

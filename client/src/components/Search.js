@@ -2,18 +2,12 @@ import React, { useState } from "react";
 import './Search.css';
 
 
-
 function Search(props) {
-
-
 
   const [userInput, setUserInput] = useState({
     enteredTitle: '',
     enteredYear: ''
   });
-  //save all movies that match into state
-    //then map through state and return all in return statement
-    //Collection of searched Movies viewable through cards
 
   const titleChangeHandler = (e) => {
     e.preventDefault();
@@ -22,7 +16,6 @@ function Search(props) {
     setUserInput((prevState) => {
       return {...prevState, enteredTitle: e.target.value };
     });
-
   }
 
   const submitHandler = (e) => {
@@ -33,19 +26,37 @@ function Search(props) {
     if (year === '') {
       fetch(`http://www.omdbapi.com/?t=${title}&apikey=917b056f`)
       .then((res) => res.json())
-      .then((data) => props.onAddMovie(data));
-  } else {
+      .then((data) => props.onAddMovie(data))
+      .catch(error => {
+        throw(error);
+    })
+    } else {
     fetch(`http://www.omdbapi.com/?t=${title}&y=${year}&apikey=917b056f`)
-    .then((res) => res.json())
-    .then((data) => props.onAddMovie(data));
-  }
-  // props.onAddMovie(data)
-
-  // if (movie.length > 1) {
-  //   console.log(movie[0])
-  // }
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      throw new Error('Something went wrong');
+    })
+    .then((data) => props.onAddMovie(data))
+    .catch(error => {
+      console.log(error);
+  })
     }
-  
+  }
+
+  // fetch(url).then((response) => {
+  //   if (response.ok) {
+  //     return response.json();
+  //   }
+  //   throw new Error('Something went wrong');
+  // })
+  // .then((responseJson) => {
+  //   // Do something with the response
+  // })
+  // .catch((error) => {
+  //   console.log(error)
+  // });
 
   const yearChangeHandler = (e) => {
     e.preventDefault();
@@ -58,24 +69,19 @@ function Search(props) {
   }
 
   return (
-    <div>
-      <h1>Your Search Begins Here</h1>
       <form value="enter here" className='form' onSubmit={submitHandler}>
           <div>
-            <div>
-              <label>Title </label>
-              <input type='text' placeholder='beach' onChange={titleChangeHandler}/>
-            </div>
-            <div>
-              <label>Year </label>
-              <input type='text' placeholder='1991' onChange={yearChangeHandler}/>
-            </div>
-            <div>
-              <button type='submit'> Search </button>
-            </div>
+            <label>Title </label>
+            <input type='text' placeholder='Guardian' onChange={titleChangeHandler}/>
           </div>
-        </form>
-    </div>
+          <div>
+            <label>Year </label>
+            <input type='text' placeholder='2018' onChange={yearChangeHandler}/>
+          </div>
+          <div>
+            <button type='submit'> Search </button>
+          </div>
+      </form>
   );
 }
 
