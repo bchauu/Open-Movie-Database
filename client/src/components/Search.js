@@ -57,7 +57,6 @@ function Search(props) {
 
   }
 
-
   return (
     <div>
       <h1>Your Search Begins Here</h1>
